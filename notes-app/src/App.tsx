@@ -13,6 +13,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" Component={Home} />
           <Route path="create" Component={Create} />
+          <Route path="edit/:title" Component={Create} />
           <Route path="detail/:title" Component={Detail} />
         </Routes>
       </BrowserRouter>

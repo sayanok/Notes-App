@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
-  const [listOfNotes, setListOfNotes] = useState<Array<string>>(["aaa", "bbb", "ccc"]);
-  // 削除function
+  const [listOfNotes, setListOfNotes] = useState<Array<string>>([""]);
+  const list = ["aaa", "bbb", "ccc"];
+
+  useEffect(() => {
+    getListOfNotes();
+  }, []);
+
+  function getListOfNotes() {
+    setListOfNotes(list);
+  }
+
+  function deleteNote(note: string) {
+    const index = listOfNotes.indexOf(note);
+    listOfNotes.splice(index, 1);
+    getListOfNotes();
+    // こんな雰囲気？なお動かない
+  }
 
   return (
     <>
@@ -12,14 +27,14 @@ const Home: React.FC = () => {
         {listOfNotes.map((note) => (
           <li>
             <Link to={"detail/" + note}>{note}</Link>
-            <button>削除</button>
+            <Link to={"edit/" + note}>
+              <button>編集</button>
+            </Link>
+            <button onClick={() => deleteNote(note)}>削除</button>
           </li>
         ))}
+        {listOfNotes}
       </div>
-
-      {/* メモ表示ボタン→メモ詳細ページ行く？
-      メモ詳細ページにはメモ表示ボタン設置
-      マークダウンするなら一言メモじゃないよな... */}
     </>
   );
 };
