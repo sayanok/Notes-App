@@ -1,19 +1,19 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Create from "./Create";
 
 import Detail from "./Detail";
-import Header from "./Header";
 import Home from "./Home";
 
 const App: React.FC = () => {
   return (
     <>
-      <Header />
       <BrowserRouter>
         <Routes>
           <Route path="/" Component={Home} />
-          <Route path="/:title" Component={Detail} />
+          <Route path="create" Component={Create} />
+          <Route path="detail/:title" Component={Detail} />
         </Routes>
       </BrowserRouter>
     </>

@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   const [listOfNotes, setListOfNotes] = useState<Array<string>>(["aaa", "bbb", "ccc"]);
+  // 削除function
 
   return (
     <>
       <div>
+        <Link to="create">新規作成</Link>
         {listOfNotes.map((note) => (
           <li>
-            <Link to={note}>{note}</Link>
+            <Link to={"detail/" + note}>{note}</Link>
             <button>削除</button>
           </li>
         ))}
