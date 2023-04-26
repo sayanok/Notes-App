@@ -1,14 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Create: React.FC = () => {
-  // 新規作成function
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [createdAt, setCreatedAt] = useState<Date>();
+  const [lengthOfNotes, setLengthOfNotes] = useState<number>();
+
+  useEffect(() => {
+    setLengthOfNotes(localStorage.length);
+  }, []);
+
+  function onChangeHandler(input: string, item: string) {
+    if (item === "title") {
+      setTitle(input);
+    } else {
+      setText(input);
+    }
+  }
+
+  function onClickHandler() {
+    setCreatedAt(new Date());
+    let id;
+    if (lengthOfNotes) {
+      id = lengthOfNotes + 1;
+    } else {
+      id = 1;
+    }
+
+    let data = [{ title }, { text }, { createdAt }];
+    localStorage.setItem(id.toString(), JSON.stringify(data));
+  }
+
   return (
     <>
       <p>タイトル</p>
-      <input></input>
+      <input onChange={(e) => onChangeHandler(e.target.value, "title")} value={title}></input>
       <p>本文</p>
-      <textarea></textarea>
+      <textarea onChange={(e) => onChangeHandler(e.target.value, "text")} value={text}></textarea>
+      <button onClick={() => onClickHandler()} disabled={title === ""}>
+        保存
+      </button>
       <Link to="/">Home</Link>
     </>
   );
