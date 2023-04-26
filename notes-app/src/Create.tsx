@@ -19,7 +19,7 @@ const Create: React.FC = () => {
     }
   }
 
-  function onClickHandler() {
+  function postNote() {
     setCreatedAt(new Date());
     let id;
     if (lengthOfNotes) {
@@ -32,15 +32,21 @@ const Create: React.FC = () => {
     localStorage.setItem(id.toString(), JSON.stringify(data));
   }
 
+  function clear() {
+    setTitle("");
+    setText("");
+  }
+
   return (
     <>
       <p>タイトル</p>
       <input onChange={(e) => onChangeHandler(e.target.value, "title")} value={title}></input>
       <p>本文</p>
       <textarea onChange={(e) => onChangeHandler(e.target.value, "text")} value={text}></textarea>
-      <button onClick={() => onClickHandler()} disabled={title === ""}>
+      <button onClick={() => postNote()} disabled={title === ""}>
         保存
       </button>
+      <button onClick={() => clear()}>クリア</button>
       <Link to="/">Home</Link>
     </>
   );
