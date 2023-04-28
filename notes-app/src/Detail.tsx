@@ -10,10 +10,10 @@ const Detail: React.FC = () => {
   const demoData = { title: "メモのタイトル", text: "メモ本文", createdAt: "2023-02-03" };
 
   useEffect(() => {
-    getNote();
+    getAndSetNote();
   }, []);
 
-  function getNote() {
+  function getAndSetNote() {
     setNote(demoData);
   }
 
