@@ -11,7 +11,6 @@ const Home: React.FC = () => {
 
   function getAndSetListOfNotes() {
     let listOfData = [];
-
     for (let i = 1; i - 1 < localStorage.length; i++) {
       const data = localStorage.getItem(i.toString());
       if (data && JSON.parse(data).status === "active") {
@@ -31,6 +30,7 @@ const Home: React.FC = () => {
 
       const inactiveNote = { id, title, text, status, createdAt };
       localStorage.setItem(id, JSON.stringify(inactiveNote));
+
       getAndSetListOfNotes();
     } else {
       console.log("error: データが存在しないよ");

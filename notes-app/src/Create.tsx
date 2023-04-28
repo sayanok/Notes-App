@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const Create: React.FC = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [createdAt, setCreatedAt] = useState<Date>();
   const [lengthOfNotes, setLengthOfNotes] = useState<number>();
 
   useEffect(() => {
@@ -20,7 +19,6 @@ const Create: React.FC = () => {
   }
 
   function postNote() {
-    setCreatedAt(new Date());
     let id;
     if (lengthOfNotes) {
       id = lengthOfNotes + 1;
@@ -28,7 +26,7 @@ const Create: React.FC = () => {
       id = 1;
     }
 
-    let data = { id, title, text, status: "active", createdAt };
+    let data = { id, title, text, status: "active", createdAt: new Date() };
     localStorage.setItem(id.toString(), JSON.stringify(data));
     clear();
   }
