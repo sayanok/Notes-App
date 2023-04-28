@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+
   const [listOfNotes, setListOfNotes] =
     useState<Array<{ id: string; title: string; text: string; status: string; createdAt: Date }>>();
 
@@ -18,6 +20,10 @@ const Home: React.FC = () => {
       }
     }
     setListOfNotes(listOfData);
+  }
+
+  function transition(path: string, title: string, id: string) {
+    navigate("/" + path + "/" + title, { state: id });
   }
 
   function deleteNote(id: string) {
@@ -43,12 +49,8 @@ const Home: React.FC = () => {
         <Link to="create">新規作成</Link>
         {listOfNotes?.map((note) => (
           <li>
-            <Link to={{ pathname: "detail/" + note.title }} state={{ id: note.id }}>
-              {note.title}
-            </Link>
-            <Link to={"edit/" + note}>
-              <button>編集</button>
-            </Link>
+            <button onClick={() => transition("detail", note.title, note.id)}>{note.title}</button>
+            <button onClick={() => transition("edit", note.title, note.id)}>編集</button>
             <button onClick={() => deleteNote(note.id)}>削除</button>
           </li>
         ))}

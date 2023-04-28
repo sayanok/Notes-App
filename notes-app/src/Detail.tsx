@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-interface State {
-  id: string;
-}
-
 const Detail: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,19 +12,24 @@ const Detail: React.FC = () => {
     status: string;
     createdAt: string;
   }>();
-  const { id } = location.state as State;
+  const [id, setId] = useState<number>(location.state as number);
 
   useEffect(() => {
     getAndSetNote();
   }, []);
 
   function getAndSetNote() {
-    const data = localStorage.getItem(id);
+    console.log(id);
+    const data = localStorage.getItem(id.toString());
     if (data) {
       setNote(JSON.parse(data));
     } else {
       console.log("error: データの取得に失敗しました");
     }
+  }
+
+  function editNote() {
+    navigate("/edit/" + note?.title, { state: note?.id });
   }
 
   function deleteNote() {
@@ -39,7 +40,7 @@ const Detail: React.FC = () => {
       const createdAt = note.createdAt;
 
       const inactiveNote = { id, title, text, status, createdAt };
-      localStorage.setItem(id, JSON.stringify(inactiveNote));
+      localStorage.setItem(id.toString(), JSON.stringify(inactiveNote));
       alert("メモを削除しました");
       navigate("/");
     } else {
@@ -51,9 +52,7 @@ const Detail: React.FC = () => {
       <p>メモタイトル: {note.title}</p>
       <p>メモ詳細: {note.text}</p>
       <p>作成日時: {note.createdAt}</p>
-      <Link to={"/edit/" + note.title}>
-        <button>編集</button>
-      </Link>
+      <button onClick={() => editNote()}>編集</button>
       <button onClick={() => deleteNote()}>削除</button>
       <Link to="/">Home</Link>
     </>
