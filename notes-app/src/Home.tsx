@@ -43,7 +43,9 @@ const Home: React.FC = () => {
         <Link to="create">新規作成</Link>
         {listOfNotes?.map((note) => (
           <li>
-            <Link to={"detail/" + note}>{note.title}</Link>
+            <Link to={{ pathname: "detail/" + note.title }} state={{ id: note.id }}>
+              {note.title}
+            </Link>
             <Link to={"edit/" + note}>
               <button>編集</button>
             </Link>

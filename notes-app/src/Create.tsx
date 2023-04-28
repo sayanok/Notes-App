@@ -30,6 +30,7 @@ const Create: React.FC = () => {
 
     let data = { id, title, text, status: "active", createdAt };
     localStorage.setItem(id.toString(), JSON.stringify(data));
+    clear();
   }
 
   function clear() {
