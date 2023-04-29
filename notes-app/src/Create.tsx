@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Create: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -34,10 +35,10 @@ const Create: React.FC = () => {
   function updateNote() {
     let data = { id, title, text, status: "active", createdAt: new Date() };
     localStorage.setItem(id.toString(), JSON.stringify(data));
-    clear();
+    navigate("/detail/" + title, { state: id });
   }
 
-  function postNote() {
+  function createNote() {
     let id;
     if (lengthOfNotes) {
       id = lengthOfNotes + 1;
@@ -61,7 +62,7 @@ const Create: React.FC = () => {
       <input onChange={(e) => onChangeHandler(e.target.value, "title")} value={title}></input>
       <p>本文</p>
       <textarea onChange={(e) => onChangeHandler(e.target.value, "text")} value={text}></textarea>
-      <button onClick={id ? () => updateNote() : () => postNote()} disabled={title === ""}>
+      <button onClick={id ? () => updateNote() : () => createNote()} disabled={title === ""}>
         保存
       </button>
       <button onClick={() => clear()}>クリア</button>

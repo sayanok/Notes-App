@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Detail: React.FC = () => {
@@ -50,7 +51,9 @@ const Detail: React.FC = () => {
   return note ? (
     <>
       <p>メモタイトル: {note.title}</p>
-      <p>メモ詳細: {note.text}</p>
+      <p>
+        メモ詳細: <ReactMarkdown>{note.text}</ReactMarkdown>
+      </p>
       <p>作成日時: {note.createdAt}</p>
       <button onClick={() => editNote()}>編集</button>
       <button onClick={() => deleteNote()}>削除</button>
