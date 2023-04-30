@@ -37,6 +37,7 @@ const Home: React.FC = () => {
       const inactiveNote = { id, title, text, status, createdAt };
       localStorage.setItem(id, JSON.stringify(inactiveNote));
 
+      alert("メモを1件削除します");
       getAndSetListOfNotes();
     } else {
       console.log("error: データが存在しないよ");
