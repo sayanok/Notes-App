@@ -1,15 +1,22 @@
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Create from "./Create";
+
+import Detail from "./Detail";
+import Home from "./Home";
 
 const App: React.FC = () => {
   return (
     <>
-      {/* ページ上にメモ新規作成ボタン */}
-      {/* メモ一覧 */}
-      {/* 一覧の横にメモ表示ボタンとメモ編集ボタンとメモ削除ボタン */}
-
-      {/* メモ表示ボタン→メモ詳細ページ行く？
-      マークダウンするなら一言メモじゃないよな... */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" Component={Home} />
+          <Route path="create" Component={Create} />
+          <Route path="edit/:title" Component={Create} />
+          <Route path="detail/:title" Component={Detail} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
